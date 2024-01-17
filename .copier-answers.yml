@@ -1,0 +1,12 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 2023.12.21
+_src_path: gh:scientific-python/cookie
+backend: hatch
+email: tyler.martin@nist.gov
+full_name: Tyler Martin
+license: MIT
+org: martintb
+project_name: sasweb
+project_short_description: A web frontend for the SasView package
+url: https://github.com/martintb/sasweb
+vcs: true

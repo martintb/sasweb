@@ -1,0 +1,15 @@
+Base reqs:
+'sasmodels', 
+'matplotlib', 
+'plotly', 
+'nicegui', 
+'numpy'
+
+
+conda env export --from-history > env.yml
+
+pip:
+sasdat
+
+
+
