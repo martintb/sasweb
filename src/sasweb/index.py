@@ -74,11 +74,14 @@ def index():
 
     with ui.row().classes('w-full justify-center'):
         with ui.card().classes('w-1/2 no-wrap'):
-            with ui.row().classes('w-full no-wrap'):
-                upload = ui.upload(label="Upload Data",on_upload=handle_upload, multiple=True, auto_upload=True)
-                upload.classes('w-1/2 float-left')
-
-                with ui.column().classes('w-full no-wrap'):
+            with ui.tabs() as tabs:
+                upload_tab = ui.tab('Upload Data')
+                select_tab = ui.tab('Select Data')
+            with ui.tab_panels(tabs,value=upload_tab).classes('w-full'):
+                with ui.tab_panel(upload_tab):
+                    upload = ui.upload(label="Upload Data",on_upload=handle_upload, multiple=True, auto_upload=True)
+                    upload.classes('w-full')
+                with ui.tab_panel(select_tab):
                     file_table = ui.aggrid({
                         "columnDefs": [
                             {"field": "filename", "editable": False, "sortable": True, "filter": "agTextColumnFilter",
@@ -90,18 +93,20 @@ def index():
                         "rowSelection": "multiple",
                         "stopEditingWhenCellsLoseFocus": True,
                     })
-                    file_table.classes('w-full float-left')
-
+                    #file_table.classes('w-full float-left')
                     plot_button = ui.button(text='Quickplot Selected', on_click=plot_selected).classes('float-right')
                     plot_button.classes('w-full float-left')
 
                     plot_button = ui.button(text='Send Selected to Fitpage', on_click=send_to_fit,color='green').classes('float-right')
                     plot_button.classes('w-full float-left')
 
-
             plotly_fig = go.Figure()
             plotly_fig.update_xaxes(title='q', type='log')
             plotly_fig.update_yaxes(title='Intensity', type='log')
+            plotly_fig.update_layout(
+                margin=dict(l=20, r=20, t=20, b=20),
+                legend=dict(yanchor="top", y=1.0, xanchor="right", x=1.0)
+            )
             ng_fig = ui.plotly(plotly_fig).classes('w-full')
         #with ui.row().classes('w-full justify-center'):
         #with ui.card().classes('w-1/2'):

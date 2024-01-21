@@ -13,16 +13,16 @@ import bumps
 import bumps.fitproblem
 import bumps.fitters
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 # End development only
 
-# @ui.page('/FitPage1D/{uid}')
-# def FitPage1D(uid:str):
+@ui.page('/FitPage1D/{uid}')
+def FitPage1D(uid:str):
 
 # >> For development only, remove for production
-@ui.page('/')
-def FitPage1D():
+# @ui.page('/')
+# def FitPage1D():
     if DEBUG_MODE:
         uid = 123
         sasdata = Loader().load('/Users/tbm/projects/1910-Toyota/2020-02-04-KSM-Inks/reduced/Nafion Ink CIL 0.5D.ABS')
@@ -36,20 +36,6 @@ def FitPage1D():
 
         app.storage.user['FIT_DATA_1D'] = {}
         # >> End development only
-
-
-    plotly_fig = go.Figure()
-    plotly_fig.update_xaxes(title='q', type='log')
-    plotly_fig.update_yaxes(title='Intensity', type='log')
-    plotly_fig.update_layout(margin=dict(l=20, r=20, t=20, b=20))
-
-    plotly_fig.add_trace(
-        go.Scatter(
-            x=app.storage.user['FILE_DATA_1D'][uid]['x'],
-            y=app.storage.user['FILE_DATA_1D'][uid]['y'],
-            mode='markers',
-            name=app.storage.user['FILE_DATA_1D'][uid]['label'],
-        ))
 
     LOCAL_DATA = {}  # need somewhere to store non-serializable data
     if uid not in app.storage.user['FIT_DATA_1D']:
@@ -152,6 +138,21 @@ def FitPage1D():
 
     with ui.row().classes('w-full justify-center'):
         with ui.card().classes('w-1/2'):
+            plotly_fig = go.Figure()
+            plotly_fig.update_xaxes(title='q', type='log')
+            plotly_fig.update_yaxes(title='Intensity', type='log')
+            plotly_fig.update_layout(
+                margin=dict(l=20, r=20, t=20, b=20),
+                legend=dict(yanchor="top", y=1.0, xanchor="right", x=1.0)
+            )
+
+            plotly_fig.add_trace(
+                go.Scatter(
+                    x=app.storage.user['FILE_DATA_1D'][uid]['x'],
+                    y=app.storage.user['FILE_DATA_1D'][uid]['y'],
+                    mode='markers',
+                    name=app.storage.user['FILE_DATA_1D'][uid]['label'],
+                ))
 
             ng_fig = ui.plotly(plotly_fig)
             ng_fig.classes('w-full')
@@ -182,6 +183,8 @@ def FitPage1D():
                 "stopEditingWhenCellsLoseFocus": True,
             })
             parameter_table.on('cellValueChanged', update_plot)
+
+
 
 
 if DEBUG_MODE:
