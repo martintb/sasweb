@@ -14,6 +14,7 @@ def index():
     # initialize global holding file table state
     app.storage.user['FILE_METADATA'] = []
     app.storage.user['FILE_DATA_1D'] = {}
+    app.storage.user['FIT_DATA_1D'] = {}
     FILE_DATA = {}
 
     def handle_upload(e: events.UploadEventArguments):
