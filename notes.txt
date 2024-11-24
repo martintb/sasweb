@@ -1,3 +1,5 @@
+conda env export --from-history > env.yml
+
 Base reqs:
 'sasmodels', 
 'matplotlib', 
@@ -6,10 +8,9 @@ Base reqs:
 'numpy'
 
 
-conda env export --from-history > env.yml
-
 pip:
-sasdat
+sasdata
+
 
 
 

@@ -71,7 +71,6 @@ def index():
                     })
             ui.open(f'/FitPage1D/{uid}',new_tab=True)
 
-
     with ui.row().classes('w-full justify-center'):
         with ui.card().classes('w-1/2 no-wrap'):
             with ui.tabs() as tabs:
