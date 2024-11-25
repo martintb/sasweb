@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 
 from nicegui import events, ui, app
 from sasdata.dataloader.loader import Loader
+from components.header import create_header
 
 from FitPage1D import FitPage1D
 
@@ -16,6 +17,9 @@ def index():
     app.storage.user['FILE_DATA_1D'] = {}
     app.storage.user['FIT_DATA_1D'] = {}
     FILE_DATA = {}
+
+    # Add header
+    create_header()
 
     def handle_upload(e: events.UploadEventArguments):
         filename = e.name
@@ -111,4 +115,4 @@ def index():
         #with ui.card().classes('w-1/2'):
         #    ng_fig = ui.plotly(plotly_fig).classes('w-full')
 
-ui.run(storage_secret='secret')
+#ui.run(storage_secret='secret')
